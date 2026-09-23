@@ -1,0 +1,9 @@
+node_modules/
+.env
+*.log
+
+# These huge GLB files are unused (old/duplicate models)
+front.glb
+shirtedited.glb
+shirt.glb
+sdf.glb

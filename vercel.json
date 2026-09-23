@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "routes": [
+    { "src": "/index\\.php", "dest": "/index.html" },
+    { "src": "/login\\.php", "dest": "/login.html" },
+    { "src": "/register\\.php", "dest": "/register.html" },
+    { "src": "/admin_orders\\.php", "dest": "/admin.html" },
+    { "src": "/(.*)", "dest": "/$1" }
+  ]
+}

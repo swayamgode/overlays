@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Try-On</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/pose-detection"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.0/fabric.min.js"></script>
+    <style>
+      body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f4f6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 900px;
+            gap: 20px;
+        }
+
+        .canvas-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        canvas {
+            border: 2px solid #ef6906;
+            border-radius: 12px;
+            
+        }
+
+        .controls {
+            flex: 0.5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .product-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 250px;
+            border: 2px solid #ef6906;
+            border-radius: 12px;
+        }
+
+        .product-box img {
+            width: 100px;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            
+        }
+
+        .product-name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .product-mrp {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        label, button {
+            display: inline-block;
+            padding: 8px 20px; 
+            background-color: #ef6906;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            text-align: center;
+            width: 120px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: none; 
+        }
+
+        label:hover, button:hover {
+            background-color: #d85e04;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+
+            .controls {
+                width: 100%;
+                align-items: center;
+            }
+
+            label, button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body onload="showtry()">
+
+    <div class="showtrynow"> </div>
+   
+
+<script src="src/script.js"></script>
+</body>
+</html>

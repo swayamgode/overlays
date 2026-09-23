@@ -1,0 +1,42 @@
+{
+    "shirts": [
+      { "no": "shirt1", "name": "Casual Black Shirt", "color": "Black", "price": 20, "url": "img/product/shirt/simg1.webp", "info": "A stylish Black shirt perfect for casual or semi-formal occasions.", "addinfo": "100% Cotton, Soft Feel, Breathable" },
+      { "no": "shirt2", "name": "Casual Cream Shirt", "color": "Cream", "price": 22, "url": "img/product/shirt/simg2.webp", "info": "A cool Cream shirt designed for everyday wear. Versatile and easy to pair.", "addinfo": "100% Cotton, Casual Style, Comfortable Fit" },
+      { "no": "shirt3", "name": "Black Pocket Shirt", "color": "Black", "price": 25, "url": "img/product/shirt/simg3.webp", "info": "A trendy Black plaid shirt that gives a relaxed yet fashionable look.", "addinfo": "Cotton Blend, Classic Plaid, Soft Material" },
+      { "no": "shirt4", "name": "Casual Blue Shirt", "color": "Blue", "price": 30, "url": "img/product/shirt/simg4.webp", "info": "A sharp Blue shirt ideal for office wear or formal occasions.", "addinfo": "100% Cotton, Slim Fit, Professional Look" }
+    ],
+ 
+        "tshirts": [
+          { "no": "tshirt1", "name": "Red Regular T-Shirt", "color": "Red", "price": 10, "url": "img/product/tshirt/regular/rtimg1.jpg", "info": "A vibrant Red t-shirt, perfect for casual outings.", "addinfo": "140 GSM, Cotton, Lightweight" },
+          { "no": "tshirt2", "name": "Orange Regular T-Shirt", "color": "Orange", "price": 12, "url": "img/product/tshirt/regular/rtimg2.jpg", "info": "A comfortable Orange t-shirt for everyday wear.", "addinfo": "140 GSM, Cotton, Regular Fit" },
+          { "no": "tshirt3", "name": "Dark Blue Regular T-Shirt", "color": "Dark Blue", "price": 11, "url": "img/product/tshirt/regular/rtimg3.jpg", "info": "A soft Dark Blue t-shirt, ideal for casual outings.", "addinfo": "140 GSM, Cotton, Breathable Fabric" },
+          { "no": "tshirt4", "name": "Black Regular T-Shirt", "color": "Black", "price": 15, "url": "img/product/tshirt/regular/rtimg4.jpg", "info": "A versatile Black t-shirt, great for layering or standalone wear.", "addinfo": "150 GSM, Cotton, Classic Fit" },
+          { "no": "tshirt5", "name": "Brown Regular T-Shirt", "color": "Brown", "price": 14, "url": "img/product/tshirt/regular/rtimg5.jpg", "info": "A plain Brown t-shirt, an essential for any wardrobe.", "addinfo": "150 GSM, Cotton, Essential Piece" },
+          { "no": "tshirt6", "name": "Grey Regular T-Shirt", "color": "Grey", "price": 13, "url": "img/product/tshirt/regular/rtimg6.jpg", "info": "A trendy Grey t-shirt for casual outings.", "addinfo": "140 GSM, Cotton, Comfortable Fit" },
+          { "no": "tshirt7", "name": "Royal Blue Regular T-Shirt", "color": "Royal Blue", "price": 9, "url": "img/product/tshirt/regular/rtimg7.jpg", "info": "A bright Royal Blue t-shirt to add a pop of color to your look.", "addinfo": "130 GSM, Cotton, Vibrant Color" },
+          { "no": "tshirt8", "name": "Casual Cream Shirt", "color": "Casual Cream", "price": 16, "url": "img/product/tshirt/regular/rtimg8.jpg", "info": "A trendy Casual Cream t-shirt for casual outings.", "addinfo": "140 GSM, Cotton, Modern Fit" },
+          { "no": "tshirt9", "name": "Light Blue Regular T-Shirt", "color": "Light Blue", "price": 17, "url": "img/product/tshirt/regular/rtimg9.jpg", "info": "A bold Light Blue t-shirt, great for stylish casual wear.", "addinfo": "150 GSM, Cotton, Bold Color" }
+        ],
+
+     
+        
+            "overshirts": [
+              { "no": "overshirt1", "name": "Red Oversized Graphic T-shirt", "color": "Red", "price": 1299, "url": "img/product/tshirt/over/otimg1.jpg", "info": "A bold Red oversized t-shirt with graphic prints. Perfect for a streetwear look.", "addinfo": "180 GSM, Cotton, Trendy Design" },
+              { "no": "overshirt2", "name": "Dark Grey Oversized T-shirt", "color": "Dark Grey", "price": 1199, "url": "img/product/tshirt/over/otimg2.jpg", "info": "A sleek Dark Grey oversized t-shirt for casual wear.", "addinfo": "190 GSM, Cotton, Premium Comfort" },
+              { "no": "overshirt3", "name": "Brown Oversized Casual T-shirt", "color": "Brown", "price": 999, "url": "img/product/tshirt/over/otimg3.jpg", "info": "A soft Brown oversized t-shirt for relaxed days.", "addinfo": "180 GSM, Cotton, Relaxed Fit" },
+              { "no": "overshirt4", "name": "Black Oversized Printed T-shirt", "color": "Black", "price": 1399, "url": "img/product/tshirt/over/otimg4.png", "info": "A stylish Black oversized t-shirt with unique prints.", "addinfo": "200 GSM, Cotton, Bold Design" },
+              { "no": "overshirt5", "name": "black or Very Dark Navy Oversized Minimalist T-shirt", "color": "Very Dark Navy", "price": 1099, "url": "img/product/tshirt/over/otimg5.jpg", "info": "A minimalist Very Dark Navy oversized t-shirt for a clean look.", "addinfo": "190 GSM, Cotton, Minimal Design" },
+              { "no": "overshirt6", "name": "Royal Blue Oversized Casual T-shirt", "color": "Royal Blue", "price": 899, "url": "img/product/tshirt/over/otimg6.jpg", "info": "A casual Royal Blue oversized t-shirt, great for every occasion.", "addinfo": "180 GSM, Cotton, Comfortable Fit" },
+              { "no": "overshirt7", "name": "Black Oversized Graphic T-shirt", "color": "Black", "price": 1299, "url": "img/product/tshirt/over/otimg7.jpg", "info": "A vibrant Black oversized t-shirt with standout graphics.", "addinfo": "200 GSM, Cotton, Durable Design" },
+              { "no": "overshirt8", "name": "Green Oversized T-shirt", "color": "Green", "price": 999, "url": "img/product/tshirt/over/otimg8.jpg", "info": "A cool Green oversized t-shirt for a laid-back vibe.", "addinfo": "190 GSM, Cotton, Breathable Fabric" },
+              { "no": "overshirt9", "name": "Light Brown Oversized Bold T-shirt", "color": "Light Brown", "price": 1199, "url": "img/product/tshirt/over/otimg9.jpg", "info": "A Light Brown oversized t-shirt for those who love bright colors.", "addinfo": "200 GSM, Cotton, Vibrant Color" },
+              { "no": "overshirt10", "name": "Light Black Oversized Classic T-shirt", "color": "Light Black ", "price": 1099, "url": "img/product/tshirt/over/otimg10.jpg", "info": "A classic Light Black  oversized t-shirt suitable for all occasions.", "addinfo": "190 GSM, Cotton, Timeless Style" },
+              { "no": "overshirt11", "name": "Dark Blue Oversized Premium T-shirt", "color": "Dark Blue ", "price": 1499, "url": "img/product/tshirt/over/otimg11.jpg", "info": "A premium Dark Blue  oversized t-shirt for a sophisticated casual look.", "addinfo": "210 GSM, Cotton, High Quality" },
+              { "no": "overshirt12", "name": "Light Blue Oversized T-shirt", "color": "Light Blue ", "price": 1299, "url": "img/product/tshirt/over/otimg12.jpg", "info": "A Light Blue  oversized t-shirt for a trendy style.", "addinfo": "180 GSM, Cotton, Soft Fabric" },
+              { "no": "overshirt13", "name": "Light Beige Oversized Summer T-shirt", "color": "Light Beige ", "price": 999, "url": "img/product/tshirt/over/otimg13.jpg", "info": "A Light Beige  oversized t-shirt perfect for summer.", "addinfo": "180 GSM, Cotton, Vibrant and Light" },
+              { "no": "overshirt14", "name": "Cream Oversized Cotton T-shirt", "color": "Cream ", "price": 1199, "url": "img/product/tshirt/over/otimg14.jpg", "info": "A rich Cream  oversized t-shirt made from premium cotton.", "addinfo": "190 GSM, Cotton, Unique Style" },
+              { "no": "overshirt15", "name": "White Oversized Formal T-shirt", "color": "White", "price": 1599, "url": "img/product/tshirt/over/otimg15.png", "info": "A formal White oversized t-shirt for an elevated casual look.", "addinfo": "210 GSM, Cotton, Sophisticated Design" }
+            ]
+          
+          
+  }

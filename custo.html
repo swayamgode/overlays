@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3D Model Editor</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.0/fabric.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128/examples/js/controls/OrbitControls.js"></script>
+  <link href="src/style.css" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      background-color: #111;
+      color: white;
+      overflow: hidden;
+    }
+
+   
+    /* Main content styling */
+    .main-container {
+      position: relative;
+      top: 50px;
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    #canvas-container {
+      width: 60%;
+      height: 100%;
+      background: #000000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-right: 2px solid #444;
+    }
+
+    #fabric-container {
+      width: 40%;
+      background: #000000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    #fabric-canvas {
+      width: 100%;
+      height: 300px;
+      background: white;
+      border: 2px solid #444;
+      margin-bottom: 15px;
+    }
+
+    input[type="file"] {
+      margin: 10px 0;
+      padding: 5px;
+      width: 100%;
+      background: #222;
+      border: 1px solid #555;
+      color: white;
+      cursor: pointer;
+    }
+
+    button {
+      padding: 10px;
+      width: 100%;
+      background: #333;
+      border: 1px solid #666;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #444;
+    }
+  </style>
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar3">
+  <div class="navbar-right">
+      <a href="index.html" class="active">Home</a>
+      <select class="btn" id="opt" onchange="handleChange(this)">
+          <option value="" disabled selected>Products</option>
+          <option value="tshirts.html">T-shirt</option>
+          <option value="shirts.html">Shirt</option>
+          <option value="oversize.html">Overshirt</option>
+          <option value="hoodies.html">Hoodies</option>
+          <option value="jackets.html">Jackets</option>
+          <option value="shorts.html">Shorts</option>
+          <option value="joggers.html">Joggers-cargo</option>
+          <option value="womenlower.html">Womens Lower</option>
+      </select>
+      <a href="custo.html" class="btn">Customize</a>
+      <a href="about.html" class="btn">About</a>
+      <a href="contact.html" class="btn">Contact</a>
+      <a href="cart.html" class="btn">Cart</a>
+  </div>
+</nav>
+<!-- -------------------------------------------------------------- -->
+
+  <div class="main-container">
+    <div id="canvas-container"></div>
+    <div id="fabric-container">
+      <canvas id="fabric-canvas" width="400" height="400"></canvas>
+      <input type="file" id="texture-upload" />
+      <button id="clear-canvas">Clear</button>
+    <button id="download-guide">Download Template</button>
+    </div>
+  </div>
+
+  <script>
+    // Initialize Fabric canvas with white background
+    const fabricCanvas = new fabric.Canvas('fabric-canvas', { backgroundColor: 'white' });
+
+    // Function to set the shirt guide as the background image
+    function setShirtGuide() {
+      fabric.Image.fromURL('shirt_guide.png', (img) => {
+        img.scaleToWidth(fabricCanvas.width);
+        img.scaleToHeight(fabricCanvas.height);
+        img.set({ selectable: false, evented: false });
+        fabricCanvas.setBackgroundImage(img, fabricCanvas.renderAll.bind(fabricCanvas));
+      });
+    }
+    // Download template button functionality
+    document.getElementById('download-guide').addEventListener('click', () => {
+      const link = document.createElement('a');
+      link.href = 'shirt_guide.png';
+      link.download = 'shirt_guide.png';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
+
+    // Load shirt guide initially
+    setShirtGuide();
+
+    // When a user uploads an image, scale it to exactly fit the canvas
+    document.getElementById('texture-upload').addEventListener('change', (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          fabric.Image.fromURL(e.target.result, (img) => {
+            // Scale the image to fit the canvas dimensions
+            img.scaleToWidth(fabricCanvas.width);
+            img.scaleToHeight(fabricCanvas.height);
+            img.set({ left: 0, top: 0 });
+            fabricCanvas.add(img);
+            fabricCanvas.renderAll();
+            updateTexture();
+          });
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Clear canvas and reload the shirt guide background
+    document.getElementById('clear-canvas').addEventListener('click', () => {
+      fabricCanvas.clear();
+      setShirtGuide();
+      updateTexture();
+    });
+
+    // Three.js setup
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x222222);
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth * 0.7 / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setSize(window.innerWidth * 0.7, window.innerHeight);
+    document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+    // Orbit controls for 3D interaction
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    camera.position.set(0, 3, 5);
+    controls.target.set(0, 1.5, 0);
+    controls.update();
+
+    // Lighting setup
+    scene.add(new THREE.AmbientLight(0xffffff, 0.4));
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.3);
+    directionalLight.position.set(5, 5, 5);
+    scene.add(directionalLight);
+    const pointLight = new THREE.PointLight(0xffffff, 0.9);
+    pointLight.position.set(-3, 3, 3);
+    scene.add(pointLight);
+
+    // Create a canvas texture from the Fabric canvas for the 3D model
+    const overlayTexture = new THREE.CanvasTexture(fabricCanvas.getElement());
+    overlayTexture.flipY = false;
+
+    // Load the GLTF model and apply the overlay texture to its mesh material
+    const loader = new THREE.GLTFLoader();
+    let model = null;
+    loader.load('shirt.glb', (gltf) => {
+      model = gltf.scene;
+      model.traverse((child) => {
+        if (child.isMesh) {
+          child.material = new THREE.MeshStandardMaterial({ map: overlayTexture });
+        }
+      });
+      scene.add(model);
+    });
+
+    // Update the texture when the Fabric canvas changes
+    function updateTexture() {
+      overlayTexture.image = fabricCanvas.getElement();
+      overlayTexture.needsUpdate = true;
+    }
+
+    fabricCanvas.on({
+      'object:modified': updateTexture,
+      'object:moving': updateTexture,
+      'object:scaling': updateTexture,
+      'object:rotating': updateTexture
+    });
+
+    // Render loop
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // Handle window resizing
+    window.addEventListener('resize', () => {
+      const width = window.innerWidth * 0.7;
+      const height = window.innerHeight;
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, height);
+    });
+
+    // Optional: Handle product selection change from the navbar select
+    function handleChange(selectObj) {
+      const value = selectObj.value;
+      if (value) {
+        window.location.href = value;
+      }
+    }
+  </script>
+</body>
+</html>

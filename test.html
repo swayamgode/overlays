@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Scrolling Slider</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .slider-container {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            text-align: center;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+            border-radius: 8px;
+        }
+        .slider {
+            display: flex;
+            width: 300%;
+            transition: transform 1s ease-in-out;
+        }
+        .slider img {
+            width: 33.3333%;
+            height: 450px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .content {
+            display: flex;
+            margin-top: 20px;
+            gap: 20px;
+        }
+        .left-section {
+            flex: 3;
+            padding: 20px;
+        }
+        .right-section {
+            flex: 1;
+            padding: 20px;
+            border-left: 1px solid #ccc;
+        }
+        .title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .tag {
+            display: inline-block;
+            background-color: green;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        .info {
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: #555;
+        }
+        .info3 {
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: #555;
+            text-align: justify;
+        }
+        .info2 {
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: #000000;
+            border: solid 2px green;
+            padding: 10px;
+            border-radius: 10px;
+
+        }
+        .right-section p {
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: #555;
+        }
+        .discount {
+            color: blue;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        .check-availability {
+            display: block;
+            background-color: blue;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            font-size: 18px;
+            text-decoration: none;
+            margin-top: 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .check-availability:hover {
+            background-color: #0056b3;
+        }
+
+        .flex{
+            display: flex;
+            gap: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="slider-container">
+        <div class="slider">
+            <img src="images/1.jpg" alt="Slide 1">
+            <img src="images/2.jpg" alt="Slide 2">
+            <img src="images/3.jpg" alt="Slide 3">
+        </div>
+    </div>
+    
+    <div class="content">
+        <div class="left-section">
+            <div class="title">Title: hereeeeeeeee</div>
+            <div class="tag">Location</div>
+            <div class="info"><strong>Overview:</strong> The Tiananmen, a gate in the wall of the Imperial City, was built in 1415 during the Ming dynasty...</div>
+            <div class="info"><strong>Accommodation:</strong> 5 Stars Hotels</div>
+            <div class="flex">
+            <div class="info2"><strong>Departure:</strong>Kathmandu</div>
+            <div class="info2"><strong>Arrival:</strong>Pokhara</div>
+            </div>
+            <div class="info"><strong>Guide:</strong> Provided</div>
+            <div class="info"><strong>Trip Type:</strong> Family</div>
+            <div class="info3"><strong>Itinerary:</strong>
+                <div class="days">
+                Day 1 :
+                Kathmandu to Pokhara (By flight or Bus), the city of Lakes, adventures and serenity.
+                Arrive at Tribhuwan International Airport, Kathmandu, you are welcomed by the team and then you will be transferred to your hotel. This trail goes through Ghorepani Poon Hill. Normally, the trek starts like Pokhara to Nayapul and ends like Phedi to Pokhara. While early travel tended to be slower, more dangerous, and more dominated by trade and migration, cultural and technological advances over many years have tended to mean that travel has become easier and more accessible. The evolution of technology in such diverse fields as horse tack and bullet trains has contributed to this trend.
+                </div>
+                <div class="days">
+                Day 2 :
+                Drive to Nayapul and trek to Ulleri
+                While early travel tended to be slower, more dangerous, and more dominated by trade and migration, cultural and technological advances over many years have tended to mean that travel has become easier and more accessible. The evolution of technology in such diverse fields as horse tack and bullet trains has contributed to this trend.
+                </div>
+                <div class="days">
+                Day 3 :
+                Trek to Ghorepani
+                The Palace of Fifty five Windows: This magnificent palace was built during the reign of King Yakshya Malla in A.D. 1427 and was subsequently remodeled by King Bhupatindra Malla in the seventeenth century. Among the brick walls with their gracious setting and sculptural design, is a balcony with Fifty five Windows, considered to be a unique masterpiece of woodcarving.
+                </div>
+                <div class="days">
+                Day 4 :
+                Early trek to Poon Hill, Back to Ghorepani and Trek to Tadapani
+                The Palace of Fifty five Windows: This magnificent palace was built during the reign of King Yakshya Malla in A.D. 1427 and was subsequently remodeled by King Bhupatindra Malla in the seventeenth century. Among the brick walls with their gracious setting and sculptural design, is a balcony with Fifty five Windows, considered to be a unique masterpiece of woodcarving.The Palace of Fifty five Windows: This magnificent palace was built during the reign of King Yakshya Malla in A.D. 1427 and was subsequently remodeled by King Bhupatindra Malla in the seventeenth century. Among the brick walls with their gracious setting and sculptural design, is a balcony with Fifty five Windows, considered to be a unique masterpiece of woodcarving.
+                </div>
+            </div>
+        </div>
+        <div class="right-section">
+            <p><span class="discount">12% Off</span></p>
+            <p>Adult: <del>$680</del> <span class="discount">$500</span></p>
+            <p>Child: <del>$280</del> <span class="discount">$250</span></p>  
+            <a href="#" class="check-availability">Book Now</a>
+            <p>Need help with booking? Send us a message</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    let index = 0;
+    const slider = document.querySelector('.slider');
+    const totalSlides = document.querySelectorAll('.slider img').length;
+
+    function autoSlide() {
+        index = (index + 1) % totalSlides;
+        slider.style.transform = translateX(-${index * 33.3333}%);
+    }
+
+    setInterval(autoSlide, 3000); // Change slide every 3 seconds
+</script>
+
+</body>
+</html>

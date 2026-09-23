@@ -1,0 +1,24 @@
+{
+  "shirts": [
+      {
+          "no": "1",
+          "type": "shirt",
+          "category": "formal",
+          "name": "Professional Dress Shirt",
+          "price": 89.99,
+          "image": "/images/formal-shirt.jpg",
+          "description": "Non-iron cotton formal shirt with french cuffs"
+      }
+  ],
+  "suits": [
+      {
+          "no": "101",
+          "type": "suit",
+          "category": "formal",
+          "name": "Business Suit",
+          "price": 299.99,
+          "image": "/images/business-suit.jpg",
+          "description": "Wool blend 2-piece business suit"
+      }
+  ]
+}

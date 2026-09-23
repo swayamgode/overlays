@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: white;
+            color: black;
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            padding: 2rem 0;
+            border-bottom: 2px solid black;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+        }
+
+        .home-link {
+            font-size: 0.9rem;
+            color: black;
+            text-decoration: none;
+            display: block;
+            margin-top: 1rem;
+        }
+
+        #cart-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid #eee;
+            gap: 1.5rem;
+        }
+
+        .cart-item img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border: 1px solid black;
+        }
+
+        .item-details {
+            flex-grow: 1;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .quantity-btn {
+            width: 35px;
+            height: 35px;
+            background: black;
+            color: white;
+            border: 1px solid black;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quantity-input {
+            width: 50px;
+            text-align: center;
+            border: 1px solid black;
+            padding: 0.3rem;
+            font-size: 1rem;
+            -moz-appearance: textfield;
+        }
+
+        .quantity-input::-webkit-outer-spin-button,
+        .quantity-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .remove-btn {
+            background: black;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            cursor: pointer;
+            align-self: flex-start;
+        }
+
+        #cart-total {
+            text-align: right;
+            font-size: 1.3rem;
+            margin: 2rem 0;
+            padding-top: 1rem;
+            border-top: 2px solid black;
+        }
+
+        #checkout-btn {
+            background: black;
+            color: white;
+            width: 100%;
+            padding: 1.2rem;
+            font-size: 1.1rem;
+            cursor: pointer;
+            border: none;
+            margin-top: 1rem;
+        }
+
+        .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    overflow-y: auto;
+    padding: 2rem 0;
+}
+
+.modal-content {
+    background: white;
+    max-width: 500px;
+    width: 90%;
+    margin: 2rem auto;
+    padding: 2rem;
+    border-radius: 8px;
+    position: relative;
+    box-sizing: border-box;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form-group {
+    margin-bottom: 0.5rem;
+}
+
+        .close {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+    
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        button[type="submit"] {
+            background: #28a745;
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.9rem;
+            display: none;
+            margin-top: 0.3rem;
+        }
+        .previous-order-container {
+    background: #f8f9fa;
+    border: 2px solid #000;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 30px;
+}
+
+.order-title {
+    font-size: 1.8rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.order-details {
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+}
+
+.order-subtitle {
+    font-size: 1.4rem;
+    color: #222;
+    margin-top: 20px;
+}
+
+.previous-products {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.previous-item {
+    display: flex;
+    align-items: center;
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid #000;
+}
+
+.previous-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: 15px;
+    border: 1px solid #000;
+}
+
+.previous-item-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.order-total {
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-align: right;
+    margin-top: 10px;
+}
+
+.reorder-btn {
+    background: #000;
+    color: white;
+    padding: 12px;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    margin-top: 15px;
+}
+
+.reorder-btn:hover {
+    background: #444;
+}
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Shopping Cart</h1>
+        <a href="index.html" class="home-link">Continue Shopping</a>
+    </header>
+
+    <main>
+        <div id="cart-container">
+            <h2>Your Selection</h2>
+            <div id="cart-items"></div>
+            <h3 id="cart-total">Total: 0.00 Rs</h3>
+            <button id="checkout-btn">Proceed to Checkout</button>
+        </div>
+    </main>
+
+    <div id="checkoutModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeCheckoutModal()">&times;</span>
+            <h2>Checkout</h2>
+            <form id="checkoutForm">
+                <div class="form-group">
+                    <label for="name">Full Name:</label>
+                    <input type="text" id="name" name="name" required pattern="^[A-Za-z\s]{2,}$">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone" required pattern="^\d{10}$">
+                </div>
+                
+                <div class="form-group">
+                    <label for="address">Delivery Address:</label>
+                    <textarea id="address" name="address" required minlength="10"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="city">City:</label>
+                    <input type="text" id="city" name="city" required pattern="^[A-Za-z\s]+$">
+                </div>
+                
+                <div class="form-group">
+                    <label for="state">State:</label>
+                    <input type="text" id="state" name="state" required pattern="^[A-Za-z\s]+$">
+                </div>
+                
+                <div class="form-group">
+                    <label for="zip">Zip Code:</label>
+                    <input type="text" id="zip" name="zip" required pattern="^\d{5,6}$">
+                </div>
+                
+                <button type="submit">Proceed to Payment</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+    updateCartUI();
+
+    const previousOrder = JSON.parse(localStorage.getItem("previousOrder"));
+    if (previousOrder) {
+        displayPreviousOrder(previousOrder);
+    }
+});
+
+function displayPreviousOrder(order) {
+    const orderContainer = document.createElement("div");
+    orderContainer.classList.add("previous-order-container");
+    orderContainer.innerHTML = `
+        <h2 class="order-title">Previous Order</h2>
+        <div class="order-details">
+            <p><strong>Name:</strong> ${order.userDetails.name}</p>
+            <p><strong>Email:</strong> ${order.userDetails.email}</p>
+            <p><strong>Phone:</strong> ${order.userDetails.phone}</p>
+            <p><strong>Address:</strong> ${order.userDetails.address}, ${order.userDetails.city}, ${order.userDetails.state}, ${order.userDetails.zip}</p>
+        </div>
+
+        <h3 class="order-subtitle">Ordered Products:</h3>
+        <div class="previous-products">
+            ${order.cart.map(item => `
+                <div class="previous-item">
+                    <img src="${item.url}" alt="${item.name}">
+                    <div class="previous-item-details">
+                        <p><strong>${item.name}</strong></p>
+                        <p>Quantity: ${item.quantity}</p>
+                        <p>Price: ₹${(item.price * item.quantity).toFixed(2)}</p>
+                    </div>
+                </div>
+            `).join("")}
+        </div>
+        <p class="order-total">Total: ₹${order.cart.reduce((acc, item) => acc + (item.price * item.quantity), 0).toFixed(2)}</p>
+        <button class="reorder-btn" onclick="reorderPreviousOrder()">Reorder</button>
+    `;
+
+    document.getElementById("cart-container").appendChild(orderContainer);
+}
+
+function reorderPreviousOrder() {
+    const previousOrder = JSON.parse(localStorage.getItem("previousOrder"));
+    if (previousOrder && previousOrder.cart.length > 0) {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        // Merge previous order items with the existing cart
+        previousOrder.cart.forEach(prevItem => {
+            let existingItem = cart.find(item => item.no === prevItem.no);
+            if (existingItem) {
+                // If item already exists, increase quantity
+                existingItem.quantity += prevItem.quantity;
+            } else {
+                // Add new item to cart
+                cart.push({ ...prevItem });
+            }
+        });
+
+        // Save updated cart to localStorage
+        localStorage.setItem("cart", JSON.stringify(cart));
+
+        // Update the UI immediately without reload
+        updateCartUI();
+
+        alert("Previous order added back to cart!");
+    } else {
+        alert("No previous order found.");
+    }
+}
+        // Initialize cart with quantity
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        cart = cart.map(item => ({ ...item, quantity: item.quantity || 1 }));
+
+        function updateCartUI() {
+    const cartContainer = document.getElementById("cart-items");
+    const cartTotal = document.getElementById("cart-total");
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    if (cart.length === 0) {
+        cartContainer.innerHTML = "<p>Your cart is empty.</p>";
+        cartTotal.textContent = "Total: ₹0.00";
+        return;
+    }
+
+    cartContainer.innerHTML = cart.map(item => `
+        <div class="cart-item">
+            <img src="${item.url}" alt="${item.name}">
+            <div class="item-details">
+                <p><strong>${item.name}</strong></p>
+                <p>Price: ₹${item.price.toFixed(2)}</p>
+                <div class="quantity-controls">
+                    <button class="quantity-btn minus" data-no="${item.no}">-</button>
+                    <input type="number" class="quantity-input" value="${item.quantity}" data-no="${item.no}" min="1">
+                    <button class="quantity-btn plus" data-no="${item.no}">+</button>
+                </div>
+            </div>
+            <button class="remove-btn" onclick="removeFromCart('${item.no}')">Remove</button>
+        </div>
+    `).join("");
+
+    const total = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+    cartTotal.textContent = `Total: ₹${total.toFixed(2)}`;
+}
+
+        // Quantity control handlers
+        document.getElementById('cart-items').addEventListener('click', function(e) {
+            if (e.target.classList.contains('quantity-btn')) {
+                const button = e.target;
+                const productNo = button.dataset.no;
+                const isPlus = button.classList.contains('plus');
+                const item = cart.find(item => item.no === productNo);
+                
+                if (item) {
+                    item.quantity = isPlus ? item.quantity + 1 : Math.max(1, item.quantity - 1);
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    updateCartUI();
+                }
+            }
+        });
+
+        // Input change handler
+        document.getElementById('cart-items').addEventListener('input', function(e) {
+            if (e.target.classList.contains('quantity-input')) {
+                const input = e.target;
+                const productNo = input.dataset.no;
+                const value = parseInt(input.value);
+                const item = cart.find(item => item.no === productNo);
+                
+                if (item && !isNaN(value) && value >= 1) {
+                    item.quantity = value;
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    updateCartUI();
+                } else {
+                    input.value = item.quantity;
+                }
+            }
+        });
+
+        function removeFromCart(productNo) {
+            cart = cart.filter(item => item.no !== productNo);
+            localStorage.setItem("cart", JSON.stringify(cart));
+            updateCartUI();
+        }
+
+        // Checkout Modal Handling
+        document.getElementById("checkout-btn").addEventListener("click", function () {
+            if (cart.length === 0) {
+                alert("Your cart is empty!");
+            } else {
+                document.getElementById("checkoutModal").style.display = "flex";
+            }
+        });
+
+        function closeCheckoutModal() {
+            document.getElementById("checkoutModal").style.display = "none";
+        }
+
+        window.onclick = function (event) {
+            const modal = document.getElementById("checkoutModal");
+            if (event.target === modal) {
+                closeCheckoutModal();
+            }
+        };
+
+        // Form Submission
+        document.getElementById("checkoutForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            const formData = {
+                name: document.getElementById("name").value,
+                email: document.getElementById("email").value,
+                phone: document.getElementById("phone").value,
+                address: document.getElementById("address").value,
+                city: document.getElementById("city").value,
+                state: document.getElementById("state").value,
+                zip: document.getElementById("zip").value
+            };
+
+            localStorage.setItem("userDetails", JSON.stringify(formData));
+            window.location.href = "payment.html";
+        });
+
+        // Initial UI update
+        document.addEventListener("DOMContentLoaded", updateCartUI);
+    </script>
+</body>
+</html>

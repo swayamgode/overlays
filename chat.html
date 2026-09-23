@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Chatbot</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.chat-container {
+    width: 80%;
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.chat-box {
+    height: 400px;
+    overflow-y: auto;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.input-container {
+    display: flex;
+    margin-top: 10px;
+}
+
+input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+button {
+    background: #000000;
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.message {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.user-message {
+    background: #000000;
+    color: white;
+    align-self: flex-end;
+}
+
+.bot-message {
+    background: #c0c0c0;
+    color: black;
+    align-self: flex-start;
+}
+
+.product-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    width: 180px;
+    margin: 10px auto;
+}
+
+.product-card:hover {
+    transform: scale(1.05);
+}
+
+.product-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.product-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-box" id="chat-box"></div>
+        <div class="input-container">
+            <input type="text" id="user-input" placeholder="Ask what to wear...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        const chatBox = document.getElementById("chat-box");
+const userInput = document.getElementById("user-input");
+
+function appendMessage(message, isUser) {
+    const messageDiv = document.createElement("div");
+    messageDiv.classList.add("message", isUser ? "user-message" : "bot-message");
+    messageDiv.innerHTML = message;
+    chatBox.appendChild(messageDiv);
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function appendProductCard(product) {
+    let productHTML = `
+     <div >Here are some suggestions !!</div>
+        <div class="product-card">
+            <a href="${product.redirectLink}">
+           
+                <div class="product-title">Click Here !! to see suggesstion</div>
+            </a>
+        </div>
+    `;
+    appendMessage(productHTML, false);
+}
+
+function sendMessage() {
+    const message = userInput.value.trim();
+    if (!message) return;
+
+    appendMessage(message, true);
+    userInput.value = "";
+
+    fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message })
+    })
+    .then(response => response.json())
+    .then(handleResponse)
+    .catch(error => console.error("Error:", error));
+}
+
+function handleResponse(response) {
+    if (response.type === 'product_card') {
+        appendProductCard(response.product);
+    } else {
+        appendMessage(response.message, false);
+    }
+}
+    </script>
+</body>
+</html>

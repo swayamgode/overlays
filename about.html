@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link href="src/style.css" rel="stylesheet"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+       
+
+        h1 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        h1 span {
+            display: block;
+            width: 100px;
+            height: 3px;
+            background-color: #f97316;
+            margin: 10px auto 0;
+        }
+
+        .section {
+            display: flex;
+            gap: 90px;
+            align-items: center;
+            justify-content: center;
+            padding: 50px 100px;
+        }
+
+        .section .text-content {
+            width: 500px;
+            font-size: 18px;
+
+            text-align: center;
+        }
+
+        .section .text-content h2 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            font-size: 32px;
+
+            margin-bottom: 20px;
+        }
+
+        .section .text-content p {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .section img {
+            width: 330px;
+            border-radius: 8px;
+           
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            background-color: #eee;
+            padding: 40px 100px;
+        }
+
+        .footer-grid {
+            display: flex;
+            justify-content: space-between;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .white-bg {
+            background-color: white;
+            padding: 20px 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .footer-grid div {
+            width: 30%;
+        }
+
+        .footer-grid h3 {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .footer-links div {
+            width: 23%;
+        }
+
+        .footer-links h5 {
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .footer-links p, .footer-links a {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: #f97316;
+        }
+
+        .footer-links input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-icons i {
+            font-size: 1.5rem;
+            color: #555;
+            cursor: pointer;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #777;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+     <!-- -------------------------------------------------------------- -->
+ <!-- Navbar -->
+<nav class="navbar3">
+    <div class="navbar-right">
+        <a href="index.html" class="btn">Home</a>
+        <select class="btn" id="opt" onchange="handleChange(this)">
+            <option value="" disabled selected>Products</option>
+            <option value="tshirts.html">T-shirt</option>
+            <option value="shirts.html">Shirt</option>
+            <option value="oversize.html">Overshirt</option>
+            <option value="hoodies.html">Hoodies</option>
+            <option value="jackets.html">Jackets</option>
+            <option value="shorts.html">Shorts</option>
+            <option value="joggers.html">Joggers-cargo</option>
+            <option value="womenlower.html">Womens Lower</option>
+        </select>
+        <a href="custo.html" class="btn">Customize</a>
+        <a href="about.html" class="active">About</a>
+        <a href="contact.html" class="btn">Contact</a>
+        <a href="cart.html" class="btn">Cart</a>
+    </div>
+  </nav>
+  <!-- -------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------- -->
+    <main>
+       
+        <br><br>
+        <div class="head">
+          <h1 class="heading">About Us</h1>
+          <hr class="head-un">
+        </div>
+        <br><br>
+
+        <section class="section">
+            <img src="img/banners/con1.png" >
+            <div class="text-content">
+                <h2>Be The CHANGE</h2>
+                
+                <p>Overlays is all about bringing a CHANGE - a positive change - into people's lives. Overlays started with the intention of reaching out to the creative youth that is striving towards bringing a change in the world. To empower these creative people, Overlays believes in making something that proves to be an add-on to their creativity.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="text-content">
+                <h2>Address</h2>
+                <p>To us, quality is something that cannot be compromised. We focus on refining the small details like the fabric's fitting and quality to increase their functionality in everyday life. We believe in making something unique that gives the fashion vibes and promises maximum comfort.</p>
+            </div>
+            <img src="img/banners/con2.png" >
+        </section>
+    </main>
+
+    <footer>
+        <!-- Updated Section with White Background -->
+        <div class="footer-grid white-bg">
+            <div>
+                <h3>FREE & FAST DELIVERY</h3>
+                <p>Shipping within 48 hours across India.</p>
+            </div>
+            <div>
+                <h3>RETURN POLICY</h3>
+                <p>Returns within 7 days.</p>
+            </div>
+            <div>
+                <h3>CONTACT US</h3>
+                <p>Write us at support@overlaysclothing.com</p>
+            </div>
+        </div>
+
+        <div class="footer-links">
+            <div>
+                <h5>ABOUT US</h5>
+                <p>Overlays Clothing Pvt Ltd</p>
+                <p>Explore to CHANGE.<br>Learn More</p>
+            </div>
+            <div>
+                <h5>POLICIES</h5>
+                <p>Return Your Order</p>
+                <p>Shipping Policy</p>
+                <p>Return, Refund, and Cancellation</p>
+                <p>Terms and Conditions</p>
+                <p>Privacy Policy</p>
+                <p>Fraud Protection</p>
+            </div>
+            <div>
+                <h5>NEWSLETTER</h5>
+                <p>You can be the first one to know about our new releases, latest offers, and more. <a href="#">Sign up now!</a></p>
+                <input type="email" placeholder="Your E-mail">
+            </div>
+            <div>
+                <h5>FOLLOW US</h5>
+                <p>Stay in touch!</p>
+                <div class="social-icons">
+                    <i class="fab fa-facebook"></i>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-youtube"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            Overlays • Powered by Shopify
+        </div>
+    </footer>
+</body>
+</html>

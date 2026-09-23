@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Register - Fashion Store</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Create your Fashion Store account to shop exclusive clothing and track your orders.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-image: url('img/c1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            padding: 36px;
+            width: 420px;
+            max-width: 90%;
+            text-align: center;
+        }
+
+        h2 {
+            color: #1a1a1a;
+            margin-bottom: 24px;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            color: #444;
+            text-align: left;
+            font-weight: 500;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 13px 16px;
+            margin-bottom: 20px;
+            border: 1.5px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: 'Outfit', sans-serif;
+            transition: border-color 0.2s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+        button[type="submit"] {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 17px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            width: 100%;
+            transition: opacity 0.2s, transform 0.1s;
+        }
+
+        button[type="submit"]:hover { opacity: 0.92; transform: translateY(-1px); }
+        button[type="submit"]:active { transform: translateY(0); }
+        button[type="submit"]:disabled { opacity: 0.6; cursor: not-allowed; }
+
+        p { margin-top: 18px; color: #666; }
+        a { color: #007bff; text-decoration: none; font-weight: 500; }
+        a:hover { text-decoration: underline; }
+
+        .error-msg {
+            background: #fff0f0;
+            border: 1px solid #ffcccc;
+            color: #cc0000;
+            padding: 10px 14px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            display: none;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .success-msg {
+            background: #f0fff4;
+            border: 1px solid #b2dfdb;
+            color: #007a3d;
+            padding: 10px 14px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            display: none;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 24px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Register</h2>
+        <div class="error-msg" id="error-msg"></div>
+        <div class="success-msg" id="success-msg"></div>
+
+        <form id="register-form">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required placeholder="Choose a username">
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required placeholder="Your email address">
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required placeholder="Min. 6 characters">
+
+            <button type="submit" id="submit-btn">Register</button>
+        </form>
+        <p>Already have an account? <a href="login.html">Log in</a></p>
+    </div>
+
+    <script>
+        // If already logged in, redirect to index
+        if (localStorage.getItem('token')) {
+            window.location.href = 'index.html';
+        }
+
+        const form = document.getElementById('register-form');
+        const errorMsg = document.getElementById('error-msg');
+        const successMsg = document.getElementById('success-msg');
+        const submitBtn = document.getElementById('submit-btn');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            errorMsg.style.display = 'none';
+            successMsg.style.display = 'none';
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Registering...';
+
+            const username = document.getElementById('username').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+
+            try {
+                const res = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, email, password })
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    successMsg.textContent = 'Registration successful! Redirecting to login...';
+                    successMsg.style.display = 'block';
+                    setTimeout(() => window.location.href = 'login.html', 1200);
+                } else {
+                    errorMsg.textContent = data.error || 'Registration failed.';
+                    errorMsg.style.display = 'block';
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Register';
+                }
+            } catch (err) {
+                errorMsg.textContent = 'Network error. Please try again.';
+                errorMsg.style.display = 'block';
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Register';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <title>Payment</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            width: 90%;
+            max-width: 600px;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #444;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .info {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 10px 0;
+        }
+        .info p {
+            font-size: 1rem;
+            margin: 0;
+            padding: 5px 0;
+        }
+        .info strong {
+            color: #555;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: #fff;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #000000;
+            font-weight: bold;
+            color: #fff;
+        }
+        td img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 5px;
+            display: block;
+        }
+        .total {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-top: 15px;
+            text-align: right;
+            color: #2c3e50;
+        }
+        .btn-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        button {
+            background: #000000;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #444;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Order Summary</h2>
+        <div class="info">
+            <p><strong>Name:</strong> <span id="userName"></span></p>
+            <p><strong>Email:</strong> <span id="userEmail"></span></p>
+            <p><strong>Phone:</strong> <span id="userPhone"></span></p>
+            <p><strong>Address:</strong> <span id="userAddress"></span></p>
+            <p><strong>City:</strong> <span id="userCity"></span></p>
+            <p><strong>State:</strong> <span id="userState"></span></p>
+            <p><strong>Zip Code:</strong> <span id="userZip"></span></p>
+        </div>
+
+        <h2>Product Details</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody id="productTable"></tbody>
+        </table>
+        
+        <p class="total">Total: ₹<span id="totalAmount"></span></p>
+
+        <div class="btn-container">
+            <button onclick="confirmOrder()">Cash on Delivery</button>
+        </div>
+    </div>
+
+    <script>
+        emailjs.init("KNeVmIzFSrqcAtR6E"); // Initialize EmailJS
+
+        function confirmOrder() {
+            const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+            if (!userDetails || cart.length === 0) {
+                alert("Missing order details.");
+                return;
+            }
+
+            // Generate order details
+            let productDetails = cart.map(item => 
+                `${item.name} (x${item.quantity}) - ₹${item.price * item.quantity}`
+            ).join("\n");
+
+            // Email parameters
+            let emailParams = {
+                user_name: userDetails.name,
+                user_email: userDetails.email,
+                user_phone: userDetails.phone,
+                user_address: `${userDetails.address}, ${userDetails.city}, ${userDetails.state}, ${userDetails.zip}`,
+                order_details: productDetails,
+                total_price: `₹${cart.reduce((acc, item) => acc + (item.price * item.quantity), 0)}`
+            };
+
+            // Debugging logs
+            console.log("Email Params:", emailParams);
+
+            // Send email using EmailJS
+            emailjs.send("service_t35s4ec", "template_5padazx", emailParams)
+                .then(response => {
+                    alert("Order placed! A confirmation email has been sent.");
+                    localStorage.removeItem("cart"); // Clear cart after order
+                    window.location.href = "index.html"; // Redirect user
+                })
+                .catch(error => console.error("EmailJS Error:", error));
+
+                 // Store previous order
+    localStorage.setItem("previousOrder", JSON.stringify({ userDetails, cart }));
+
+alert("Order placed successfully!");
+localStorage.removeItem("cart"); // Clear current cart
+window.location.href = "cart.html"; // Redirect to cart page
+
+        }
+
+        // Load user details from localStorage
+        const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        if (userDetails) {
+            document.getElementById("userName").textContent = userDetails.name;
+            document.getElementById("userEmail").textContent = userDetails.email;
+            document.getElementById("userPhone").textContent = userDetails.phone;
+            document.getElementById("userAddress").textContent = userDetails.address;
+            document.getElementById("userCity").textContent = userDetails.city;
+            document.getElementById("userState").textContent = userDetails.state;
+            document.getElementById("userZip").textContent = userDetails.zip;
+        }
+
+        let totalAmount = 0;
+        const productTable = document.getElementById("productTable");
+
+        cart.forEach(item => {
+            totalAmount += item.quantity * item.price;
+            const row = `<tr>
+                <td><img src="${item.url}" alt="${item.name}"></td>
+                <td>${item.name}</td>
+                <td>${item.quantity}</td>
+                <td>₹${item.price * item.quantity}</td>
+            </tr>`;
+            productTable.innerHTML += row;
+        });
+
+        document.getElementById("totalAmount").textContent = totalAmount;
+    </script>
+
+</body>
+</html>

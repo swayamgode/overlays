@@ -1,0 +1,13 @@
+node_modules/
+.env
+*.log
+.DS_Store
+Thumbs.db
+
+# Huge unused 3D model files (not needed by site)
+front.glb
+shirtedited.glb
+shirt.glb
+sdf.glb
+
+.vercel

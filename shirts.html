@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="src/style.css" rel="stylesheet"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body onload="show()">
+     <!-- -------------------------------------------------------------- -->
+<!-- Navbar -->
+<!-- Navbar -->
+<nav class="navbar3">
+  <div class="navbar-right">
+      <a href="index.html" class="active">Home</a>
+      <select class="btn" id="opt" onchange="handleChange(this)">
+          <option value="" disabled selected>Products</option>
+          <option value="tshirts.html">T-shirt</option>
+          <option value="shirts.html">Shirt</option>
+          <option value="oversize.html">Overshirt</option>
+          <option value="hoodies.html">Hoodies</option>
+          <option value="jackets.html">Jackets</option>
+          <option value="shorts.html">Shorts</option>
+          <option value="joggers.html">Joggers-cargo</option>
+          <option value="womenlower.html">Womens Lower</option>
+      </select>
+      <a href="custo.html" class="btn">Customize</a>
+      <a href="about.html" class="btn">About</a>
+      <a href="contact.html" class="btn">Contact</a>
+      <a href="cart.html" class="btn">Cart</a>
+  </div>
+</nav>
+<!-- -------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------- -->
+
+<!-- -------------------------------------------------------------- -->
+<div class="top">
+<br><br>
+<div class="head">
+  <h1 class="heading">Shirts</h1>
+  <hr class="head-un">
+</div>
+<br><br>
+<!-- -------------------------------------------------------------- -->
+
+<div class="scroll-transition">
+<div class="lp" id="show2"> </div>
+</div>
+  
+<!-- -------------------------------------------------------------- -->
+<br><br>
+<div class="head">
+  <h1 class="heading">More Products</h1>
+  <hr class="head-un">
+</div>
+<br><br>
+<!-- -------------------------------------------------------------- -->
+
+<div class="scroll-transition">
+  <div class="lp" id="lp"></div>
+</div>
+  
+</div>
+  <script src="src/script.js"></script>
+    
+</body>
+</html>

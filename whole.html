@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .product-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .main-image {
+            width: 500px;
+            height: auto;
+            margin-right: 30px;
+        }
+
+        .thumbnails {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .thumbnail-img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .thumbnail-img.active {
+            border-color: #000;
+        }
+
+        .details-section {
+            display: flex;
+            gap: 40px;
+        }
+
+        .product-info {
+            flex: 1;
+        }
+
+        .price {
+            font-size: 24px;
+            color: #000;
+            margin: 20px 0;
+        }
+
+        .size-selector {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .size-btn {
+            padding: 10px 20px;
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+
+        .size-btn.active {
+            background: #000;
+            color: white;
+        }
+
+        .action-buttons {
+            margin-top: 30px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .action-buttons button {
+            padding: 15px 30px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .add-to-cart {
+            background: #000;
+            color: white;
+        }
+
+        .try-now {
+            background: #f0f0f0;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div id="centr"></div>
+
+    <script>
+        let productData = null;
+
+        async function loadProducts() {
+            const response = await fetch('/api/products');
+            productData = await response.json();
+        }
+
+        async function initializeProductPage() {
+            await loadProducts();
+            
+            const params = new URLSearchParams(window.location.search);
+            const productNo = params.get('no');
+            const productType = params.get('type');
+
+            if (!productNo || !productType) {
+                document.getElementById('centr').innerHTML = '<p>Product not found</p>';
+                return;
+            }
+
+            const product = productData[productType + 's'].find(p => p.no === productNo);
+
+            if (!product) {
+                document.getElementById('centr').innerHTML = '<p>Product not found</p>';
+                return;
+            }
+
+            // Generate image variations
+            const basePath = product.image.replace('.jpg', '');
+            const images = [
+                `${basePath}.jpg`,
+                `${basePath}_1.jpg`,
+                `${basePath}_2.jpg`,
+                `${basePath}_3.jpg`
+            ];
+
+            // Create HTML
+            const productHTML = `
+                <div class="product-container">
+                    <div class="details-section">
+                        <div class="image-section">
+                            <img class="main-image" src="${images[0]}" alt="${product.name}" id="mainImage">
+                            <div class="thumbnails">
+                                ${images.map((img, index) => `
+                                    <img 
+                                        src="${img}" 
+                                        class="thumbnail-img ${index === 0 ? 'active' : ''}" 
+                                        onclick="changeImage('${img}', this)"
+                                        alt="Thumbnail ${index + 1}"
+                                    >
+                                `).join('')}
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h1>${product.name}</h1>
+                            <p class="price">$${product.price}</p>
+                            <p>${product.info}</p>
+                            <div class="size-selector">
+                                ${['S', 'M', 'L', 'XL'].map(size => `
+                                    <div class="size-btn" onclick="selectSize(this)">${size}</div>
+                                `).join('')}
+                            </div>
+                            <div class="action-buttons">
+                                <button class="add-to-cart" onclick="addToCart('${product.no}')">Add to Cart</button>
+                                <button class="try-now" onclick="tryNow('${product.image}')">Try Now</button>
+                            </div>
+                            <p class="additional-info">${product.addinfo}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('centr').innerHTML = productHTML;
+            document.querySelector('.size-btn').classList.add('active');
+        }
+
+        function changeImage(src, element) {
+            document.getElementById('mainImage').src = src;
+            document.querySelectorAll('.thumbnail-img').forEach(img => img.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        function selectSize(element) {
+            document.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        function addToCart(productId) {
+            // Implement cart functionality
+            console.log('Added to cart:', productId);
+            alert('Added to cart!');
+        }
+
+        function tryNow(imageUrl) {
+            // Implement try now functionality
+            console.log('Trying:', imageUrl);
+            alert('Try Now feature coming soon!');
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', initializeProductPage);
+    </script>
+</body>
+</html>
